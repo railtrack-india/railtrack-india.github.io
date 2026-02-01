@@ -1,15 +1,11 @@
-// Animate numbers in Project Snapshot stats
-function animate(id, target) {
-  let n = 0;
-  const el = document.getElementById(id);
-  const i = setInterval(() => {
-    n++;
-    el.textContent = n;
-    if (n >= target) clearInterval(i);
-  }, 30);
-}
+// Animate numbers or track button click
+document.getElementById("trackBtn").addEventListener("click", () => {
+  alert("PNR tracking coming soon 🚀");
+});
 
-// Start animations
-animate("stat1", 120);
-animate("stat2", 45);
-animate("stat3", 999);
+// Simple train parallax on scroll
+const train = document.getElementById("train");
+window.addEventListener("scroll", () => {
+  const scroll = window.scrollY;
+  train.style.transform = `translateX(${scroll * 1.5}px)`;
+});
