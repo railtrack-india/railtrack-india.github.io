@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Railtrack — Next-Gen Indian Train Tracking</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Framer Motion (UMD) -->
+  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top, #0a0a0a, #020202);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .neon {
+      box-shadow: 0 0 30px rgba(59,130,246,.45);
+    }
+
+    .seat-available {
+      background: rgba(59,130,246,.15);
+      border: 1px solid rgba(59,130,246,.6);
+      box-shadow: 0 0 14px rgba(59,130,246,.6);
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="relative min-h-screen flex items-center justify-center px-6 text-center">
+
+  <div class="z-10">
+    <h1 class="text-[3.5rem] md:text-[8rem] font-black tracking-tight bg-gradient-to-b from-white to-gray-500 bg-clip-text text-transparent">
+      RAILTRACK
+    </h1>
+    <p class="mt-6 text-blue-400 tracking-widest uppercase text-sm md:text-base">
+      Next-Generation Indian Rail Intelligence
+    </p>
+  </div>
+
+  <!-- Parallax Train -->
+  <div id="train" class="absolute bottom-28 left-[-40%] h-20 md:h-28 w-96 md:w-[520px]
+       bg-gradient-to-r from-gray-200 via-blue-600 to-blue-900
+       rounded-r-full flex items-center px-6 neon">
+    <span class="text-xs font-bold opacity-60">VANDE BHARAT EXPRESS</span>
+  </div>
+
+</section>
+
+<!-- FLOATING PNR -->
+<div class="sticky top-6 z-50 px-4 flex justify-center">
+  <div class="glass neon w-full max-w-2xl rounded-2xl p-3 flex items-center gap-4 transition hover:scale-[1.02]">
+    <i data-lucide="search" class="text-blue-400"></i>
+    <input class="bg-transparent outline-none flex-1 text-lg placeholder-gray-500"
+      placeholder="Enter PNR for real-time luxury tracking">
+    <button class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 transition font-semibold">
+      Track
+    </button>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="max-w-6xl mx-auto py-32 space-y-48 px-6">
+
+  <!-- LIVE STATUS -->
+  <div class="glass rounded-3xl p-10 grid md:grid-cols-2 gap-12 items-center feature">
+    <div>
+      <h2 class="text-4xl font-bold mb-4">Live Status Widget</h2>
+      <p class="text-gray-400 text-lg">
+        Know exactly where your train is — accurate, elegant, real-time.
+      </p>
+    </div>
+
+    <div class="bg-black/40 rounded-2xl p-6">
+      <div class="flex justify-between text-xs text-gray-500 mb-3">
+        <span>NDLS</span><span>BSB</span>
+      </div>
+
+      <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+        <div id="progress" class="h-full bg-blue-500 relative w-0">
+          <div class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full neon"></div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 mt-4 text-sm">
+        <i data-lucide="timer" class="w-4 text-blue-400"></i>
+        <span>On Time · Arriving in 12 min</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEAT MAP -->
+  <div class="glass rounded-3xl p-10 grid md:grid-cols-2 gap-12 items-center feature">
+
+    <div class="order-2 md:order-1 grid grid-cols-4 gap-4">
+      <div class="w-10 h-10 rounded-md seat-available"></div>
+      <div class="w-10 h-10 rounded-md border border-white/10"></div>
+      <div class="w-10 h-10 rounded-md border border-white/10"></div>
+      <div class="w-10 h-10 rounded-md seat-available"></div>
+
+      <div class="w-10 h-10 rounded-md border border-white/10"></div>
+      <div class="w-10 h-10 rounded-md border border-white/10"></div>
+      <div class="w-10 h-10 rounded-md border border-white/10"></div>
+      <div class="w-10 h-10 rounded-md border border-white/10"></div>
+    </div>
+
+    <div>
+      <h2 class="text-4xl font-bold mb-4">Smart Seat Map</h2>
+      <p class="text-gray-400 text-lg">
+        Visual coach layout with intelligent seat availability highlights.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<footer class="py-20 text-center border-t border-white/10">
+  <p class="text-gray-600">© 2026 Railtrack India · Built for the future of motion</p>
+</footer>
+
+<script>
+  lucide.createIcons();
+
+  // Smooth parallax train
+  window.addEventListener('scroll', () => {
+    const train = document.getElementById('train');
+    const y = Math.min(window.scrollY, 1200);
+    train.style.transform = `translateX(${y * 0.8}px)`;
+  });
+
+  // Animate progress bar loop
+  let p = 0;
+  setInterval(() => {
+    p = (p + 1) % 101;
+    document.getElementById('progress').style.width = p + '%';
+  }, 80);
+
+  // Reveal animations
+  const features = document.querySelectorAll('.feature');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.transform = 'translateY(0)';
+        e.target.style.opacity = 1;
+      }
+    });
+  }, { threshold: 0.2 });
+
+  features.forEach(f => {
+    f.style.opacity = 0;
+    f.style.transform = 'translateY(60px)';
+    f.style.transition = '0.8s ease';
+    observer.observe(f);
+  });
+</script>
+
+</body>
+  </html>
