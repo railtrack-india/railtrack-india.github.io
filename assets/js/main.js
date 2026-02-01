@@ -1,11 +1,17 @@
-// Animate numbers or track button click
-document.getElementById("trackBtn").addEventListener("click", () => {
-  alert("PNR tracking coming soon 🚀");
+// ===== TRAIN PARALLAX =====
+const train = document.getElementById('train');
+window.addEventListener('scroll', () => {
+  const scroll = window.scrollY;
+  train.style.transform = `translateX(${scroll*1.8}px) rotate(-2deg)`;
 });
 
-// Simple train parallax on scroll
-const train = document.getElementById("train");
-window.addEventListener("scroll", () => {
-  const scroll = window.scrollY;
-  train.style.transform = `translateX(${scroll * 1.5}px)`;
+// ===== SCROLLYTELLING =====
+const features = document.querySelectorAll('.feature-tell');
+window.addEventListener('scroll', () => {
+  features.forEach(f => {
+    const top = f.getBoundingClientRect().top;
+    if(top < window.innerHeight - 100){
+      f.classList.add('show');
+    }
+  });
 });
